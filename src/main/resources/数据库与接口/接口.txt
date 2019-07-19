@@ -1,0 +1,233 @@
+
+
+字段说明：
+wholesalePrice 批发价
+retailPrice 零售价
+num 库存
+
+1、首页接口：/goods/list
+
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "banners": [
+            {
+                "id": "111",
+                "title": "海参-花",
+                "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                "wholesalePrice": 30,
+                "retailPrice": 40,
+                "num": 1000,
+                "address": "浙江温州",
+                "inBanner": true,
+                "createTime": "2019-05-12T19:00:05",
+                "updateTime": "2019-05-12T19:00:05"
+            },
+            {
+                "id": "555",
+                "title": "海参-酒",
+                "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                "wholesalePrice": 30,
+                "retailPrice": 40,
+                "num": 1000,
+                "address": "浙江温州",
+                "inBanner": true,
+                "createTime": "2019-05-12T19:00:05",
+                "updateTime": "2019-05-12T19:00:05"
+            }
+        ],
+        "goodsList": [
+            {
+                "id": "111",
+                "title": "海参-花",
+                "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                "wholesalePrice": 30,
+                "retailPrice": 40,
+                "num": 1000,
+                "address": "浙江温州",
+                "inBanner": true,
+                "createTime": "2019-05-12T19:00:05",
+                "updateTime": "2019-05-12T19:00:05"
+            }
+            ]
+
+2、商品详情：/goods/detail?id=222
+
+    {
+        "code": 200,
+        "message": "success",
+        "data": {
+            "id": "222",
+            "title": "海参-间",
+            "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+            "wholesalePrice": 30,
+            "retailPrice": 40,
+            "num": 1000,
+            "address": "浙江温州",
+            "inBanner": false,
+            "createTime": "2019-05-12T19:00:05",
+            "updateTime": "2019-05-12T19:00:05"
+        }
+    }
+
+3、添加订单：/order/add
+
+ 字段说明：
+ goodsTotal 商品总额，按此付款，后台会核对金额
+
+    参数：
+     {
+       "userId": "111",
+       "goodsList": [{
+         "goodsId": "111",
+         "goodsNum": 2
+       },{
+         "goodsId": "222",
+         "goodsNum": 5
+       }],
+       "goodsTotal": 280,
+       "addressId": "111"
+     }
+
+    返回：
+    {
+        "code": 200,
+        "message": "success",
+        "data": {
+            "orderId": "0f5eadf4c1af44f0aef3b1e441fbc4b4"
+        }
+    }
+
+4、查询订单：/order/select
+
+    参数：
+        {
+         "userId": "111",
+         "status": 1 //放空：全部订单；1-未付款，2-已付款
+         }
+
+    返回：
+    {
+        "code": 200,
+        "message": "success",
+        "data": {
+            "orderList": [
+                {
+                    "orderId": "60a9594a38624c91b2a5b168d25603a9",
+                    "orderCode": "20190512220758502",
+                    "status": 1,
+                    "statusDesc": "未付款",
+                    "goodsInfo": [
+                        {
+                            "goodsId": "111",
+                            "title": "海参-花",
+                            "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                            "goodsWholesalePrice": 30,
+                            "goodsRetailPrice": 40,
+                            "goodsBuyNum": 2
+                        },
+                        {
+                            "goodsId": "222",
+                            "title": "海参-间",
+                            "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                            "goodsWholesalePrice": 30,
+                            "goodsRetailPrice": 40,
+                            "goodsBuyNum": 5
+                        }
+                    ],
+                    "goodsTotal": 280
+                }
+            ]
+        }
+    }
+
+5、增加地址：/address/add
+
+        参数：
+        {
+          "userId": "111",
+          "name": "阿鑫",
+          "mobile": "18802020303",
+          "addressArea": "福建省厦门市思明区",
+          "addressDetail": "莲前街道水晶国际"
+        }
+
+         返回：
+         {
+             "code": 200,
+             "message": "success",
+             "data": null
+         }
+
+6、查询地址：/address/select
+        参数：
+       {
+        "userId": "111"
+       }
+
+        返回：
+        {
+            "code": 200,
+            "message": "success",
+            "data": [
+                {
+                    "id": "0e94829bb8cf4d70ab82eb78d1ffa726",
+                    "userId": "111",
+                    "name": "阿鑫",
+                    "mobile": "18802020303",
+                    "addressArea": "福建省厦门市思明区",
+                    "addressDetail": "莲前街道水晶国际",
+                    "lastUsed": false,
+                    "createTime": "2019-05-12T22:36:26",
+                    "updateTime": "2019-05-12T22:36:26"
+                }
+                ]
+              }
+
+7、更新地址：/address/update
+
+      参数：
+      {
+        "id": "0e94829bb8cf4d70ab82eb78d1ffa726",
+        "name": "阿鑫最帅",
+        "mobile": "18802020303",
+        "addressArea": "福建省厦门市思明区",
+        "addressDetail": "莲前街道水晶国际11#111"
+      }
+
+        返回：
+        {
+            "code": 200,
+            "message": "success",
+            "data": null
+        }
+
+8、删除地址：/address/delete
+
+    参数：
+    {
+      "id": "0e94829bb8cf4d70ab82eb78d1ffa726"
+     }
+
+     返回：
+     {
+         "code": 200,
+         "message": "success",
+         "data": null
+     }
+
+9、获取用户ID：/user/getUserId
+    参数：
+    {
+    	"openId": "222"
+    }
+
+    返回：
+    {
+        "code": 200,
+        "message": "success",
+        "data": {
+            "userId": "0dbffec964bf4e0aa165df65095d3218"
+        }
+    }

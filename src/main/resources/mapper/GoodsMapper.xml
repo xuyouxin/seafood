@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.xuyx.seafood.dbservice.mapper.GoodsMapper">
+
+	<select id="selectBanners" resultType="GoodsDo">
+		select *
+		from wx_goods
+		where num > 0 and in_banner = 1
+		order by update_time desc
+	</select>
+	
+	<select id="selectGoodsList" resultType="GoodsDo">
+		select *
+		from wx_goods
+		where num > 0
+		order by update_time desc
+	</select>
+
+	<select id="findGoods" resultType="top.xuyx.seafood.dbservice.entity.GoodsDo">
+		select *
+		from wx_goods
+		order by update_time desc
+		limit ${start}, ${size}
+	</select>
+
+	<select id="findGoodsCount" resultType="int">
+		select count(*)
+		from wx_goods
+	</select>
+</mapper>

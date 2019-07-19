@@ -1,0 +1,12 @@
+{
+  "userId": "111",
+  "goodsList": [{
+    "goodsId": "111",
+    "goodsNum": 2
+  },{
+    "goodsId": "222",
+    "goodsNum": 5
+  }],
+  "goodsTotal": 100,
+  "addressId": "111"
+}

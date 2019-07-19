@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.xuyx.seafood.dbservice.mapper.OrderMapper">
+
+    <select id="findOrdersByUserId" resultType="top.xuyx.seafood.model.out.OrderVo">
+        select o.id as order_id,
+        o.order_code,
+        o.status,
+        o.status_desc,
+        o.goods_total,
+        o.order_note
+        from wx_order o
+        where o.user_id = #{userId}
+        <if test="status != null">
+            and o.status = #{status}
+        </if>
+    </select>
+
+    <update id="updateOrderStatus">
+		update wx_order o, wx_order_pay op
+		set o.status = #{status}, o.status_desc = #{statusDesc}
+		where op.order_code = #{linkNo}
+		  and op.order_id = o.id
+	</update>
+
+    <update id="updateOrderPay">
+		update wx_order_pay
+		set pay_status = #{payStatus}
+		where order_code = #{linkNo}
+	</update>
+
+
+    <sql id="findAllOrdersFromAndWhere">
+        from wx_order o, wx_user u
+        where o.user_id = u.id
+        <if test="userName != null and userName !=''">
+            and u.name = #{userName}
+        </if>
+        <if test="name != null and name !=''">
+            and o.name = #{name}
+        </if>
+        <if test="mobile != null and mobile !=''">
+            and o.mobile like '%${mobile}%'
+        </if>
+        <if test="address != null and address !=''">
+            and (o.address_area like '%${address}%' or o.address_detail like '%${address}%')
+        </if>
+        <if test="status != null and status !=''">
+            and o.status = #{status}
+        </if>
+    </sql>
+
+    <select id="findAllOrders" resultType="top.xuyx.seafood.model.out.BackOrderVo">
+        select o.*, u.name as user_name
+        <include refid="findAllOrdersFromAndWhere"></include>
+        order by o.update_time desc
+        limit ${start}, ${size}
+    </select>
+
+    <select id="findAllOrdersCount" resultType="int">
+        select count(*)
+        <include refid="findAllOrdersFromAndWhere"></include>
+    </select>
+</mapper>

@@ -1,0 +1,188 @@
+0、登陆：/back/login
+参数：
+{
+	"name": "admin",
+	"password": "123456"
+}
+
+返回：
+{
+    "code": 200,
+    "message": "success",
+    "data": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2Mjk0ODUzNn0.IVS1RBsVuSv5A49RzMU-8RofVnbNOlDK0p4zdfa_VJ-Tx3DItAQ341LK65jogq7MfWuvq-kdXd9dcAuqHxUxCg"
+}
+
+说明：后面的几个接口，调用时需要传token，传token的方式是：在请求头中传name（登陆的用户名）和token参数（登陆成功返回的数据）
+
+
+1、商品列表：/back/goods/list?current=1&size=3
+
+参数说明：current 当前第几页，从1开始
+        size 每页大小
+
+返回：
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": "111",
+            "title": "海参-花",
+            "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+            "wholesalePrice": 30,
+            "retailPrice": 40,
+            "num": 992,
+            "address": "浙江温州",
+            "inBanner": true,
+            "createTime": "2019-05-12T21:43:39",
+            "updateTime": "2019-05-12T22:07:58"
+        },
+        {
+            "id": "222",
+            "title": "海参-间",
+            "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+            "wholesalePrice": 30,
+            "retailPrice": 40,
+            "num": 980,
+            "address": "浙江温州",
+            "inBanner": false,
+            "createTime": "2019-05-12T21:43:39",
+            "updateTime": "2019-05-12T22:07:58"
+        },
+        {
+            "id": "333",
+            "title": "海参-一",
+            "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+            "wholesalePrice": 30,
+            "retailPrice": 40,
+            "num": 1000,
+            "address": "浙江温州",
+            "inBanner": false,
+            "createTime": "2019-05-12T21:43:39",
+            "updateTime": "2019-05-12T21:43:39"
+        }
+    ]
+}
+
+2、保存商品（id为空时为新增，id不为空为更新）：/back/goods/save
+
+参数：
+{
+  "title": "新产品-6-4",
+  "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+  "wholesalePrice": 40,
+  "retailPrice": 35,
+  "num": 100,
+  "address": "湖北省武汉市",
+  "inBanner": true
+}
+
+返回：
+{
+    "code": 200,
+    "message": "success",
+    "data": null
+}
+
+3、删除商品：/back/goods/delete
+
+参数：
+{
+	"id": "994d30ea952646e68f064aa9aeccc7a2"
+}
+
+返回：
+{
+    "code": 200,
+    "message": "success",
+    "data": null
+}
+
+4、查询订单：/back/order/list
+
+参数：
+{
+	"current": 1,
+	"size": 3,
+	"userName": "阳明",
+	"mobile": "1880502093"
+}
+必填参数：current 和 size
+可选参数：userName，mobile，name，address，status（1-未付款，2-已付款）
+
+返回：
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "list": [
+            {
+                "id": "d87a6ddb4c7f4f908904c37c1c2ce6c1",
+                "orderCode": "20190709014535568",
+                "userName": null,
+                "name": "李智龙",
+                "mobile": "18758286741",
+                "addressArea": "北京,北京市,海淀区",
+                "addressDetail": "一堆哦却他",
+                "goodsTotal": 40,
+                "statusDesc": "未付款",
+                "orderGoods": [
+                    {
+                        "orderId": "d87a6ddb4c7f4f908904c37c1c2ce6c1",
+                        "goodsId": "111",
+                        "title": "海参-花",
+                        "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                        "goodsWholesalePrice": 30,
+                        "goodsRetailPrice": 40,
+                        "goodsBuyNum": 1
+                    }
+                ]
+            },
+            {
+                "id": "daf84475fefe41529d9259cc23963def",
+                "orderCode": "20190709014535921",
+                "userName": null,
+                "name": "李智龙",
+                "mobile": "18758286741",
+                "addressArea": "北京,北京市,海淀区",
+                "addressDetail": "一堆哦却他",
+                "goodsTotal": 40,
+                "statusDesc": "未付款",
+                "orderGoods": [
+                    {
+                        "orderId": "daf84475fefe41529d9259cc23963def",
+                        "goodsId": "111",
+                        "title": "海参-花",
+                        "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                        "goodsWholesalePrice": 30,
+                        "goodsRetailPrice": 40,
+                        "goodsBuyNum": 1
+                    }
+                ]
+            },
+            {
+                "id": "51aa0cf41f014ab0b005aa763410cf68",
+                "orderCode": "20190709014533720",
+                "userName": null,
+                "name": "李智龙",
+                "mobile": "18758286741",
+                "addressArea": "北京,北京市,海淀区",
+                "addressDetail": "一堆哦却他",
+                "goodsTotal": 40,
+                "statusDesc": "未付款",
+                "orderGoods": [
+                    {
+                        "orderId": "51aa0cf41f014ab0b005aa763410cf68",
+                        "goodsId": "111",
+                        "title": "海参-花",
+                        "photo": "https://cdwc-image.oss-cn-hangzhou.aliyuncs.com/goods/t1534074538464Z.jpg",
+                        "goodsWholesalePrice": 30,
+                        "goodsRetailPrice": 40,
+                        "goodsBuyNum": 1
+                    }
+                ]
+            }
+        ],
+        "count": 164
+    }
+}

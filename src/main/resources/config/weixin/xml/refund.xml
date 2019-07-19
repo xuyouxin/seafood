@@ -1,0 +1,12 @@
+<xml>
+   <appid>${appid ?if_exists}</appid>
+   <mch_id>${mch_id ?if_exists}</mch_id>
+   <nonce_str>${nonce_str ?if_exists}</nonce_str>
+   <op_user_id>${op_user_id ?if_exists}</op_user_id>
+   <out_refund_no>${out_refund_no ?if_exists}</out_refund_no>
+   <out_trade_no>${out_trade_no ?if_exists}</out_trade_no>
+   <refund_fee>${refund_fee ?if_exists}</refund_fee>
+   <total_fee>${total_fee ?if_exists}</total_fee>
+   <transaction_id></transaction_id>
+   <sign>${sign ?if_exists}</sign>
+</xml>

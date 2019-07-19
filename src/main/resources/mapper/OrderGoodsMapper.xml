@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.xuyx.seafood.dbservice.mapper.OrderGoodsMapper">
+
+	<select id="findOrderGoodsByOrderId" resultType="top.xuyx.seafood.model.out.OrderVo$OrderGoodsVo">
+		select
+			og.order_id,
+			og.goods_id,
+			og.goods_title as title,
+			og.goods_photo as photo,
+			og.goods_wholesale_price,
+			og.goods_retail_price,
+			og.goods_buy_num,
+			og.unit
+		from wx_order_goods og
+		where og.order_id= #{orderId}
+	</select>
+
+	<select id="findOrderGoodsByOrderIds" resultType="top.xuyx.seafood.model.out.OrderVo$OrderGoodsVo">
+		select
+			og.order_id,
+			og.goods_id,
+			og.goods_title as title,
+			og.goods_photo as photo,
+			og.goods_wholesale_price,
+			og.goods_retail_price,
+			og.goods_buy_num,
+			og.unit
+		from wx_order_goods og
+		where og.order_id in
+		<foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
+			"${orderId}"
+		</foreach>
+	</select>
+
+</mapper>

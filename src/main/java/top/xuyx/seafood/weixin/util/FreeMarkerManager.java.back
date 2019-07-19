@@ -1,0 +1,147 @@
+package com.xuyx.shopping.weixin.util;
+
+ 
+ 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Locale;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import freemarker.template.Configuration;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
+
+public class FreeMarkerManager {
+	private static final Log LOG = LogFactory.getLog(FreeMarkerManager.class);
+	public static final long serialVersionUID = -2440216393145762479L;
+
+	private Configuration config;
+	private ObjectWrapper wrapper;
+	private Locale locale = new Locale("zh", "CN");
+
+	/*** 指定加载模板时 将字节转为字符时的编码格式 ，也可以 在加载模板时指定转码格式 */
+	private String defaultEncoding = "UTF-8";
+
+	public FreeMarkerManager(String templatePath, String defaultEncoding) {
+		this.defaultEncoding = defaultEncoding;
+		try {
+			config = createConfiguration();
+			config.setLocale(locale);
+			config.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
+
+			wrapper = ObjectWrapper.DEFAULT_WRAPPER;
+
+			config.setObjectWrapper(wrapper);
+
+			config.setDirectoryForTemplateLoading(new File(templatePath));
+
+			config.setDefaultEncoding(defaultEncoding);
+
+			config.setNumberFormat("0");
+
+		} catch (Exception e) {
+
+			LOG.error("FreeMarkerManager() error : ", e);
+
+		}
+	}
+
+	// 生成文件
+	 
+	public void processFile(String templFilePath, Map model, File targetFile)
+			throws IOException {
+		Template template = null;
+		try {
+			template = config.getTemplate(templFilePath);
+			template.setLocale(locale);
+
+		} catch (FileNotFoundException e) {
+			LOG.error("getTemplate error : " + templFilePath, e);
+			return;
+		}
+
+		Writer writer = null;
+		FileOutputStream output = null;
+		try {
+			output = new FileOutputStream(targetFile);
+			writer = new OutputStreamWriter(output, defaultEncoding);
+			template.process(model, writer);
+
+		} catch (Exception ex) {
+			LOG.error("create File with freemarker error : ", ex);
+		} finally {
+
+			if (writer != null) {
+				writer.flush();
+				writer.close();
+			}
+			if (output != null) {
+				output.flush();
+				output.close();
+			}
+		}
+	}
+
+	// 生成字符串
+ 
+	public String processString(String templFilePath, Map model)
+			throws IOException {
+		Template template = null;
+		try {
+			template = config.getTemplate(templFilePath);
+			template.setLocale(locale);
+
+		} catch (FileNotFoundException e) {
+			LOG.error("getTemplate error : " + templFilePath, e);
+			return "";
+		}
+
+		StringWriter writer = new StringWriter();
+		try {
+			 
+			template.process(model, writer);
+
+			return writer.toString();
+
+		} catch (Exception ex) {
+			LOG.error("create File with freemarker error : ", ex);
+		} finally {
+
+			if (writer != null) {
+				writer.flush();
+				writer.close();
+			}
+			 
+		}
+		return "";
+	}
+
+	protected Locale deduceLocale() {
+		LOG.info(config.getLocale());
+		return config.getLocale();
+	}
+
+	protected Configuration createConfiguration() {
+		return new Configuration();
+	}
+
+	protected ObjectWrapper getObjectWrapper() {
+		return wrapper;
+	}
+
+	protected Configuration getConfiguration() {
+		return config;
+	}
+
+
+}

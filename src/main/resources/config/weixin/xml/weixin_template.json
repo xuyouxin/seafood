@@ -1,0 +1,19 @@
+{
+   "touser":"${touser ?if_exists}",
+   "template_id":"${template_id ?if_exists}",
+   <#if url?exists>
+   "url":"${url ?if_exists}", 
+   </#if>           
+   "data":{
+   <#list dataMap?keys as key> 
+           "${key}": {
+               "value":"${dataMap[key]}",
+               "color":"#173177"
+           },
+   </#list>  
+           "other":{
+               "value":"",
+               "color":""
+           }
+   }
+}

@@ -1,0 +1,18 @@
+<xml>
+   <appid>${appid ?if_exists}</appid>
+   <attach>${attach ?if_exists}</attach>
+   <body>${body ?if_exists}</body>
+   <mch_id>${mch_id ?if_exists}</mch_id>
+   <nonce_str>${nonce_str ?if_exists}</nonce_str>
+   <notify_url>${notify_url ?if_exists}</notify_url>
+   <#if openid ? exists > 
+   <openid>${openid ?if_exists}</openid>
+   </#if> <#if product_id ? exists > 
+   <product_id>${product_id ?if_exists}</product_id>
+   </#if>
+   <out_trade_no>${out_trade_no ?if_exists}</out_trade_no>
+   <spbill_create_ip>${spbill_create_ip ?if_exists}</spbill_create_ip>
+   <total_fee>${total_fee ?if_exists}</total_fee>
+   <trade_type>${trade_type ?if_exists}</trade_type>
+   <sign>${sign ?if_exists}</sign>
+</xml>

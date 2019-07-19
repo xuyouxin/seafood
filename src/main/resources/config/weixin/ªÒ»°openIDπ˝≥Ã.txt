@@ -1,0 +1,4 @@
+获取openID过程：
+请求到后台后，后台看cookie里是否有openID里，有直接返回；
+没有的话，判断是否有code字段（微信提供），有的话，后台用code访问微信服务器，换取openID，然后把openID写入到cookie，并返回；
+没有code，后台sendRedirect，让前端跳转微信服务器，拿取code，前端拿到code后，会进入上一步（微信也会sendRedirect，从而进入上一步）
