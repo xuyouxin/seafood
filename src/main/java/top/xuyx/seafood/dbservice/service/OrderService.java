@@ -67,6 +67,7 @@ public class OrderService extends ServiceImpl<OrderMapper, OrderDo> {
 			og.setGoodsTitle(goods.getTitle());
 			og.setGoodsPhoto(goods.getPhoto());
 			og.setGoodsBuyNum(ogm.getGoodsNum());
+			og.setUnit(ogm.getGoods().getUnit());
 			og.setGoodsWholesalePrice(goods.getWholesalePrice());
 			og.setGoodsRetailPrice(goods.getRetailPrice());
 			og.setGoodsAddress(goods.getAddress());

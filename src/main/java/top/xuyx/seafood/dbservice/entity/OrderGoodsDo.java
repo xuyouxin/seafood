@@ -33,6 +33,8 @@ public class OrderGoodsDo implements Serializable {
 
     private Integer goodsBuyNum;
 
+    private Integer unit;
+
     private String goodsAddress;
 
 
